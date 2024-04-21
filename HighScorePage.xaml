@@ -1,0 +1,54 @@
+﻿<Page
+    x:Class="Stiche_zaubern.HighscorePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stiche_zaubern"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
+        <Button Content="Zurück" Click="BackButton_Click" Style="{StaticResource XboxButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10"/>
+        <TextBlock Text="Highscore-Liste" FontSize="24" HorizontalAlignment="Center" Margin="0,20,0,10"/>
+        <ListView x:Name="HighscoreListView" Margin="20,80,20,40" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <!-- Header row -->
+                            <RowDefinition Height="Auto"/>
+                            <!-- First data row -->
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="40" />
+                            <ColumnDefinition Width="250"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="150"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Platz" Grid.Row="0"/>
+                        <TextBlock Grid.Column="1" Text="Name" Grid.Row="0"/>
+                        <TextBlock Grid.Column="2" Text="Punkte" Grid.Row="0"/>
+                        <TextBlock Grid.Column="3" Text="Anzahl Gegner" Grid.Row="0"/>
+                        <TextBlock Grid.Column="4" Text="Spieltyp" Grid.Row="0"/>
+                        <TextBlock Grid.Column="5" Text="Punkte Erstplatzierter" Grid.Row="0"/>
+                        <TextBlock Grid.Column="6" Text="Punkte Letztplatzierter" Grid.Row="0"/>
+
+                        <TextBlock Grid.Column="0" Text="{Binding Placement}" Grid.Row="1"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Name}" Grid.Row="1"/>
+                        <TextBlock Grid.Column="2" Text="{Binding Points}" Grid.Row="1"/>
+                        <TextBlock Grid.Column="3" Text="{Binding NumOpponents}" Grid.Row="1"/>
+                        <TextBlock Grid.Column="4" Text="{Binding Type}" Grid.Row="1"/>
+                        <TextBlock Grid.Column="5" Text="{Binding PointsFirst}" Grid.Row="1"/>
+                        <TextBlock Grid.Column="6" Text="{Binding PointsLast}" Grid.Row="1"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock x:Name="NoDataText" Text="Keine Highscore-Daten vorhanden." VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed"/>
+    </Grid>
+</Page>
