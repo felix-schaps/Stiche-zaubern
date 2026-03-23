@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Stiche_zaubern
+{
+    public class PlayerInRound
+    {
+        public SortedSet<Card> hand { get; private set; }
+        public List<Trick> tricks { get; private set; }
+        public int guessedTricks { get; internal set; }
+        public Card chosenJugglingCard { get; internal set; }
+
+        private readonly string playerName;
+
+        public PlayerInRound(Player player)
+        {
+            hand = new SortedSet<Card>();
+            tricks = new List<Trick>();
+            guessedTricks = -1;
+            chosenJugglingCard = null;
+            playerName = player.name;
+        }
+
+        public void giveCards(SortedSet<Card> cards)
+        {
+            hand = cards;
+        }
+        public int getNumberOfWonHands()
+        {
+            return tricks.Count;
+        }
+        public void giveTrick(Trick trick)
+        {
+            tricks.Add(trick);
+        }
+        public void popCard(Card popping)
+        {
+            if (!hand.Remove(popping))
+            {
+                throw new Exception("Player has not the popping card.");
+            }
+
+            if (hand.Contains(popping))
+            {
+                throw new Exception("Popping card was not succesfull!");
+            }
+        }
+        public bool hasCardOfColor(CardColor color)
+        {
+            foreach (Card card in hand)
+            {
+                if (card.color == color)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public Dictionary<Card, bool> isLegalMove(Trick trick)
+        {
+            Dictionary<Card, bool> legalMoves = new Dictionary<Card, bool>();
+
+            if(trick.hasDragon()&&trick.hasWizard()&&hand.Any(k => k.isFairy()))
+            {
+                foreach (Card karte in hand)
+                {
+                    legalMoves.Add(karte, karte.isFairy());
+                }
+                return legalMoves;
+            }
+
+
+            if (trick.followColor == CardColor.SPECIAL)
+            {
+                foreach (Card karte in hand)
+                {
+                    legalMoves.Add(karte, true);
+                }
+            }
+            else
+            {
+                foreach (Card karte in hand)
+                {
+                    if (karte.color == CardColor.SPECIAL)
+                    {
+                        legalMoves.Add(karte, true);
+                    }
+                    else if (karte.color == trick.followColor)
+                    {
+                        legalMoves.Add(karte, true);
+                    }
+                    else
+                    {
+                        legalMoves.Add(karte, !hasCardOfColor(trick.followColor));
+                    }
+                }
+            }
+            return legalMoves;
+        }
+        public void giveJugglingCard(Card card)
+        {
+            _ = hand.Add(card);
+        }
+        public int calculatePoints()
+        {
+            int fairyTale = tricks.Any(trick => trick.hasDragon() && trick.hasFairy()) ? 1 : 0;
+
+            int diff = Math.Abs(guessedTricks - getNumberOfWonHands());
+            return diff == 0 ? 2 + getNumberOfWonHands()+fairyTale : -diff+fairyTale;
+        }
+        public bool hasGuessed()
+        {
+            return guessedTricks != -1;
+        }
+        public int getNumOfTricksToGet()
+        {
+            return Math.Max(0, guessedTricks - getNumberOfWonHands());
+        }
+    }
+}

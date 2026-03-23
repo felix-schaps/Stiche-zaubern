@@ -1,0 +1,21 @@
+﻿<Application
+    x:Class="Stiche_zaubern.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Stiche_zaubern">
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <Style x:Key="XboxButtonStyle" TargetType="Button">
+                <Setter Property="Background" Value="#FF1A2704"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="BorderThickness" Value="2"/>
+                <Setter Property="BorderBrush" Value="White"/>
+                <Setter Property="Padding" Value="10"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <!-- Weitere Stil-Anpassungen nach Bedarf -->
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

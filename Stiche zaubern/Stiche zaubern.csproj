@@ -1,0 +1,342 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{0DC2CC2A-1F51-4DD2-B266-A9DE5B607D6C}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Stiche_zaubern</RootNamespace>
+    <AssemblyName>Stiche zaubern</AssemblyName>
+    <DefaultLanguage>de-DE</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
+    <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
+    <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
+    <GenerateTestArtifacts>True</GenerateTestArtifacts>
+    <AppxBundle>Auto</AppxBundle>
+    <AppxBundlePlatforms>x64</AppxBundlePlatforms>
+    <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <AppxPackageDir>C:\Users\felix\OneDrive\Dokumente\repros\Stiche_zaubern\</AppxPackageDir>
+    <PackageCertificateThumbprint>D021E7E3EE7064398BF6076C0084722769DC7024</PackageCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="ActivePlayer.cs" />
+    <Compile Include="ActiveRoundInfo.cs" />
+    <Compile Include="AICardsCalculator.cs" />
+    <Compile Include="AIKarte.cs" />
+    <Compile Include="AIPlayer.cs" />
+    <Compile Include="AIPlayerInRound.cs" />
+    <Compile Include="AIPlayerInTrick.cs" />
+    <Compile Include="AIPlayerInTricking.cs" />
+    <Compile Include="AIUnknownCardsHelper.cs" />
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CalculatorLogisticValue.cs" />
+    <Compile Include="CardAnimation.cs" />
+    <Compile Include="CardColor.cs" />
+    <Compile Include="CardsCalculator.cs" />
+    <Compile Include="CardValueInUnknownCards.cs" />
+    <Compile Include="ExceptionHelper.cs" />
+    <Compile Include="DisplayActivePlayer.cs" />
+    <Compile Include="DisplayManager.cs" />
+    <Compile Include="DisplayOtherPlayer.cs" />
+    <Compile Include="DisplayPlayer.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameClient.cs" />
+    <Compile Include="GameManager.cs" />
+    <Compile Include="GameMode.cs" />
+    <Compile Include="GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameRound.cs" />
+    <Compile Include="HowToPlayPage.xaml.cs">
+      <DependentUpon>HowToPlayPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GamingMessageDecoder.cs" />
+    <Compile Include="HighscoresManager.cs" />
+    <Compile Include="NetworkConnectPage.xaml.cs">
+      <DependentUpon>NetworkConnectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NetworkHostPage.xaml.cs">
+      <DependentUpon>NetworkHostPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameSelectionPage.xaml.cs">
+      <DependentUpon>GameSelectionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GameServer.cs" />
+    <Compile Include="GuessHelper.cs" />
+    <Compile Include="HighscoreCsv.cs" />
+    <Compile Include="HighScorePage.xaml.cs">
+      <DependentUpon>HighScorePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Card.cs" />
+    <Compile Include="Deck.cs" />
+    <Compile Include="MainMenuPage.xaml.cs">
+      <DependentUpon>MainMenuPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="NetworkListener.cs" />
+    <Compile Include="NetworkTalker.cs" />
+    <Compile Include="NetworkTalkManager.cs" />
+    <Compile Include="NormalDistributionSelector.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="PlayerInRound.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AICardProbCalculator.cs" />
+    <Compile Include="RemotePlayer.cs" />
+    <Compile Include="RequestHandler.cs" />
+    <Compile Include="Trick.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Herz1.jpg" />
+    <Content Include="Assets\Herz10.jpg" />
+    <Content Include="Assets\Herz11.jpg" />
+    <Content Include="Assets\Herz12.jpg" />
+    <Content Include="Assets\Herz13.jpg" />
+    <Content Include="Assets\Herz2.jpg" />
+    <Content Include="Assets\Herz3.jpg" />
+    <Content Include="Assets\Herz4.jpg" />
+    <Content Include="Assets\Herz5.jpg" />
+    <Content Include="Assets\Herz6.jpg" />
+    <Content Include="Assets\Herz7.jpg" />
+    <Content Include="Assets\Herz8.jpg" />
+    <Content Include="Assets\Herz9.jpg" />
+    <Content Include="Assets\Karo1.jpg" />
+    <Content Include="Assets\Karo10.jpg" />
+    <Content Include="Assets\Karo11.jpg" />
+    <Content Include="Assets\Karo12.jpg" />
+    <Content Include="Assets\Karo13.jpg" />
+    <Content Include="Assets\Karo2.jpg" />
+    <Content Include="Assets\Karo3.jpg" />
+    <Content Include="Assets\Karo4.jpg" />
+    <Content Include="Assets\Karo5.jpg" />
+    <Content Include="Assets\Karo6.jpg" />
+    <Content Include="Assets\Karo7.jpg" />
+    <Content Include="Assets\Karo8.jpg" />
+    <Content Include="Assets\Karo9.jpg" />
+    <Content Include="Assets\Kreuz1.jpg" />
+    <Content Include="Assets\Kreuz10.jpg" />
+    <Content Include="Assets\Kreuz11.jpg" />
+    <Content Include="Assets\Kreuz12.jpg" />
+    <Content Include="Assets\Kreuz13.jpg" />
+    <Content Include="Assets\Kreuz2.jpg" />
+    <Content Include="Assets\Kreuz3.jpg" />
+    <Content Include="Assets\Kreuz4.jpg" />
+    <Content Include="Assets\Kreuz5.jpg" />
+    <Content Include="Assets\Kreuz6.jpg" />
+    <Content Include="Assets\Kreuz7.jpg" />
+    <Content Include="Assets\Kreuz8.jpg" />
+    <Content Include="Assets\Kreuz9.jpg" />
+    <Content Include="Assets\Pik1.jpg" />
+    <Content Include="Assets\Pik10.jpg" />
+    <Content Include="Assets\Pik11.jpg" />
+    <Content Include="Assets\Pik12.jpg" />
+    <Content Include="Assets\Pik13.jpg" />
+    <Content Include="Assets\Pik2.jpg" />
+    <Content Include="Assets\Pik3.jpg" />
+    <Content Include="Assets\Pik4.jpg" />
+    <Content Include="Assets\Pik5.jpg" />
+    <Content Include="Assets\Pik6.jpg" />
+    <Content Include="Assets\Pik7.jpg" />
+    <Content Include="Assets\Pik8.jpg" />
+    <Content Include="Assets\Pik9.jpg" />
+    <Content Include="Assets\Special2.jpg" />
+    <Content Include="Assets\Special3.jpg" />
+    <Content Include="Assets\Special4.jpg" />
+    <Content Include="Assets\Special5.jpg" />
+    <Content Include="Assets\Special6.jpg" />
+    <Content Include="Assets\Special7.jpg" />
+    <Content Include="Assets\Unknown.jpg" />
+    <Content Include="Properties\Default.rd.xml" />
+    <Content Include="Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\SplashScreen.scale-200.png" />
+    <Content Include="Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MessagePack">
+      <Version>3.1.4</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HowToPlayPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NetworkConnectPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NetworkHostPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="GameSelectionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HighScorePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainMenuPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\.editorconfig">
+      <Link>.editorconfig</Link>
+    </None>
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <PRIResource Include="Strings\de-DE\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
+    <None Include="Stiche zaubern_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stiche_Zaubern_MsgPack_Library\Stiche_Zaubern_MsgpLib.csproj">
+      <Project>{08412a05-0e42-4070-8b48-acb289ddc682}</Project>
+      <Name>Stiche_Zaubern_MsgpLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

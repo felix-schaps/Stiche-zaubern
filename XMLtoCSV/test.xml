@@ -1,0 +1,21 @@
+<vertrag>
+	<vertragsbausteine>
+		<vertragsbaustein class="test">
+			<nr>1</nr>
+			<herkunft>
+				<status>ABGEGANGEN</status>
+				<beginn>2025-09-01</beginn>
+			</herkunft>
+			<beitrag>25.56</beitrag>
+		</vertragsbaustein>
+		<vertragsbaustein class="test">
+			<nr>2</nr>
+			<herkunft>
+				<status>ABGEGANGEN</status>
+				<beginn>2025-09-01</beginn>
+			</herkunft>
+			<beitrag>25.76</beitrag>
+		</vertragsbaustein>
+	</vertragsbausteine>
+	<ende>2045-03-01</ende>
+</vertrag>

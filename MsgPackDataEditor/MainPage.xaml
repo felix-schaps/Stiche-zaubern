@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="MsgPackDataEditor.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MsgPackDataEditor"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel Padding="20">
+        <ComboBox x:Name="TypeSelector" SelectionChanged="TypeSelector_SelectionChanged" Margin="0,0,0,10"/>
+        <Button Content="Load File" Click="LoadButton_Click" Margin="0,0,0,10"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <TreeView x:Name="DataTree" Grid.Column="0" ItemInvoked="DataTree_SelectionChanged"/>
+
+            <ScrollViewer Grid.Column="1">
+                <StackPanel x:Name="EditorPanel" Padding="10"/>
+            </ScrollViewer>
+        </Grid>
+
+        <Button Content="Save" Click="SaveButton_Click"/>
+    </StackPanel>
+</Page>
