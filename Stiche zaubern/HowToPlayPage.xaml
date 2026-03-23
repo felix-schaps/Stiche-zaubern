@@ -10,5 +10,64 @@
     <Grid Background="{ThemeResource SystemColorHighlightBrush}">
         
         <Button x:Name="BackButton" x:Uid="Back" Click="BackButton_Click" Style="{StaticResource XboxButtonStyle}" VerticalAlignment="Top" Margin="10,10,0,0"/>
+        <ScrollViewer Margin="10,60,10,10" VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+
+                <TextBlock Text="Spielanleitung — Stiche zaubern" FontSize="22" FontWeight="Bold" Margin="0,0,0,12"/>
+
+                <TextBlock Text="Ziel" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            Gewinnen Sie möglichst genau die Anzahl Stiche, die Sie vor Beginn jeder Runde angesagt haben. Bei genauer Vorhersage gibt es die Anzahl der Vorhersage zuzüglich von 2 Bonuspunkten, bei Abweichung Minuspunkte in Höhe der Abweichung.
+                </TextBlock>
+
+                <TextBlock Text="Kartenset" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            Das Deck besteht aus vier Farben mit den Werten 2–10, Bube, Dame und König zuzüglich Sonderkarten:
+            Bombe, Drache, Fee, 4× Narr, 4× Zauberer und 1× Jongleur.
+                </TextBlock>
+
+                <TextBlock Text="Ablauf einer Runde" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            - Runde n: Jeder Spieler erhält n Karten. (Runden beginnen bei 1 und laufen bis zur maximalen Rundenzahl.)<LineBreak/>
+            - Nach dem Austeilen wird eine Trumpfkarte gezogen. Ist die gezogene Karte ein Zauberer oder Drache, wird eine Trumpf-Wahl-Phase aktiviert; ansonsten bestimmt die gezogene Karte die Trumpffarbe.<LineBreak/>
+            - Anschließend geben die Spieler der Reihe nach ihre Vorhersage ab, wie viele Stiche sie gewinnen werden (Guessing-Phase). Die Spielreihenfolge rotiert entsprechend dem aktuellen Startspieler.
+                </TextBlock>
+
+                <TextBlock Text="Stichregeln" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            - Beim Ausspielen muss Farbe bedient werden, sofern möglich. Spezialkarten (z. B. Zauberer, Drache, Fee, Narr, Bombe, Jongleur) dürfen grundsätzlich gespielt werden.<LineBreak/>
+            - Wenn die laufende Stichfarbe SPECIAL ist (kein Folgesignal), darf jede Karte gelegt werden.<LineBreak/>
+            - Wenn eine Karte einer anderen Farbe als der Folgefarbe gelegt wird und der Spieler noch Karten der Folgefarbe besitzt, gilt dieser Zug als illegal.
+                </TextBlock>
+
+                <TextBlock Text="Sonderkarten / Wechselwirkungen" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            - Zauberer und Drache sind "magische" Karten und haben spezielle Gewinnregeln.<LineBreak/>
+            - Fee und Narr gelten als "Fool" und interagieren mit magischen Karten – z. B. schränkt die Kombination aus Drache+Zauberer die möglichen Züge ein: besitzt ein Spieler nur eine Fee, kann nur diese gelegt werden.<LineBreak/>
+            - Jongleur löst eine kurze Juggle-Phase aus: das Spiel wechselt in den JUGGLING-Modus, in dem Spieler eine spezielle Aktion wählen können.<LineBreak/>
+            - Wird eine Bombe gelegt, darf der bombenlegende Spieler die erste Karte des nächsten Stichs ausspielen, aber der Stich selbst zählt nicht als gewonnen.
+                </TextBlock>
+
+                <TextBlock Text="Auswertung / Punkte" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            - Nach Abschluss aller Stiche einer Runde werden die Punkte berechnet.<LineBreak/>
+            - Punkteformel: Gibt es mindestens eine Kombination eines Stichs mit Drache + Fee, gibt das einen Bonuspunkt (fairyTale).<LineBreak/>
+            - Ist die Vorhersage korrekt, erhält der Spieler 2 + Anzahl gewonnener Stiche + eventuell Fairy-Bonus. Ist die Vorhersage falsch, gibt es -|Differenz| Punkte + eventuell Fairy-Bonus.
+                </TextBlock>
+
+                <TextBlock Text="Ende des Spiels" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
+            Das Spiel endet, wenn die nächste Runde die maximal erlaubte Rundenzahl überschreitet. Am Ende wird die Gesamtpunktzahl der Spieler verglichen.
+                </TextBlock>
+
+                <TextBlock Text="Tipps / Hinweise für Spieler" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
+            - Versuchen Sie, Ihre Vorhersage realistisch einzuschätzen; ein exakter Treffer bringt den höchsten Bonus.<LineBreak/>
+            - Beobachten Sie, welche Farben andere Spieler nicht mehr bedienen können.<LineBreak/>
+            - Nutze Spezialkarten taktisch: Zauberer/Drache können Stiche entscheiden, Fee kann Interaktionen verändern, Jongleur löst Sondermechanik aus.
+                </TextBlock>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
