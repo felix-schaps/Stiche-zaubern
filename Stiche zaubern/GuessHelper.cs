@@ -50,7 +50,7 @@ namespace Stiche_zaubern
                 numPlayers++;
                 if (player.hasGuessed())
                 {
-                    sum += player.guessedTricks;
+                    sum += player.GuessedTricks;
                     guessed++;
                 }
             }
@@ -68,7 +68,7 @@ namespace Stiche_zaubern
             {
                 if (player.hasGuessed())
                 {
-                    sum += player.guessedTricks;
+                    sum += player.GuessedTricks;
                 }
             }
             return sum;

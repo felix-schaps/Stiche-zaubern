@@ -5,7 +5,7 @@ namespace Stiche_zaubern
     {
         public NetworkListener Listener {get; private set;}
 
-        public RemotePlayer(string name, byte id, Grid position, NetworkListener listener) : base(name, id)
+        public RemotePlayer(Stiche_Zaubern_MsgpLib.Player playerLib, Grid position, NetworkListener listener) : base(playerLib)
         {
             display = new DisplayOtherPlayer(position);
             Listener = listener;

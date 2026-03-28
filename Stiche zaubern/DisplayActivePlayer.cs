@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Immutable;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Panel = Windows.UI.Xaml.Controls.Panel;
@@ -9,7 +9,7 @@ namespace Stiche_zaubern
     {
         public DisplayActivePlayer(Grid position) : base(position) { }
 
-        public override void displayGivenCards(SortedSet<Card> cards)
+        public override void displayGivenCards(ImmutableSortedSet<Card> cards)
         {
             Panel panel = (Panel)((ScrollViewer)grid.Children[0]).Content;
             cards.ToList().ForEach(k => displayCard(k, panel));

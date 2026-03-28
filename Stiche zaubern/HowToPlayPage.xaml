@@ -8,63 +8,152 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource SystemColorHighlightBrush}">
-        
         <Button x:Name="BackButton" x:Uid="Back" Click="BackButton_Click" Style="{StaticResource XboxButtonStyle}" VerticalAlignment="Top" Margin="10,10,0,0"/>
         <ScrollViewer Margin="10,60,10,10" VerticalScrollBarVisibility="Auto">
             <StackPanel>
 
                 <TextBlock Text="Spielanleitung — Stiche zaubern" FontSize="22" FontWeight="Bold" Margin="0,0,0,12"/>
 
-                <TextBlock Text="Ziel" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <!-- Kurzüberblick -->
+                <TextBlock Text="Kurzüberblick" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            Gewinnen Sie möglichst genau die Anzahl Stiche, die Sie vor Beginn jeder Runde angesagt haben. Bei genauer Vorhersage gibt es die Anzahl der Vorhersage zuzüglich von 2 Bonuspunkten, bei Abweichung Minuspunkte in Höhe der Abweichung.
+                    Ziel des Spiels ist es, in jeder Runde vorherzusagen, wie viele Stiche man genau gewinnt. Für jede exakte Vorhersage gibt es Punkte (2 + Anzahl gewonnener Stiche), bei Abweichung verliert man Punkte in Höhe der Differenz.
                 </TextBlock>
 
-                <TextBlock Text="Kartenset" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <!-- Vorbereitung -->
+                <TextBlock Text="Vorbereitung" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            Das Deck besteht aus vier Farben mit den Werten 2–10, Bube, Dame und König zuzüglich Sonderkarten:
-            Bombe, Drache, Fee, 4× Narr, 4× Zauberer und 1× Jongleur.
+                    - Jeder Spieler erhält in Runde n genau n Karten. Runden starten bei 1 und laufen bis zur maximal möglichen Rundenzahl.<LineBreak/>
+                    - Nach dem Austeilen wird eine Trumpfkarte gezogen. Sie legt meist die Trumpffarbe fest; besondere gezogene Karten lösen stattdessen Spezialphasen aus.
                 </TextBlock>
 
+                <!-- Ablauf -->
                 <TextBlock Text="Ablauf einer Runde" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            - Runde n: Jeder Spieler erhält n Karten. (Runden beginnen bei 1 und laufen bis zur maximalen Rundenzahl.)<LineBreak/>
-            - Nach dem Austeilen wird eine Trumpfkarte gezogen. Ist die gezogene Karte ein Zauberer oder Drache, wird eine Trumpf-Wahl-Phase aktiviert; ansonsten bestimmt die gezogene Karte die Trumpffarbe.<LineBreak/>
-            - Anschließend geben die Spieler der Reihe nach ihre Vorhersage ab, wie viele Stiche sie gewinnen werden (Guessing-Phase). Die Spielreihenfolge rotiert entsprechend dem aktuellen Startspieler.
+                    1) Trumpf bestimmen (gegebenenfalls Trumpf-Wahl bei Spezialkarte).<LineBreak/>
+                    2) Guessing-Phase: Reihum sagt jeder Spieler an, wie viele Stiche er gewinnen will.<LineBreak/>
+                    3) Stichphase: Spieler spielen Karten; es wird Farbe bedient, falls möglich.<LineBreak/>
+                    4) Am Ende der Runde werden Stiche und Punkte ausgewertet.
                 </TextBlock>
 
-                <TextBlock Text="Stichregeln" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <!-- Stichregeln -->
+                <TextBlock Text="Wichtige Stichregeln" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            - Beim Ausspielen muss Farbe bedient werden, sofern möglich. Spezialkarten (z. B. Zauberer, Drache, Fee, Narr, Bombe, Jongleur) dürfen grundsätzlich gespielt werden.<LineBreak/>
-            - Wenn die laufende Stichfarbe SPECIAL ist (kein Folgesignal), darf jede Karte gelegt werden.<LineBreak/>
-            - Wenn eine Karte einer anderen Farbe als der Folgefarbe gelegt wird und der Spieler noch Karten der Folgefarbe besitzt, gilt dieser Zug als illegal.
+                    - Folgepflicht: Wenn die erste Karte des Stiches eine normale Farbe hat, müssen Folgefarbe bedient werden, sofern möglich.<LineBreak/>
+                    - Spezialkarten (z. B. Zauberer, Drache, Fee, Narr, Bombe, Jongleur) dürfen normalerweise jederzeit gespielt werden; ihre Regeln können jedoch Einschränkungen oder Spezialphasen erzeugen.<LineBreak/>
+                    - Wenn ein Spieler eine andere Farbe spielt, obwohl er die Folgefarbe besitzt, ist dieser Zug illegal und kann zum Stichverlust oder Strafe führen (house rules beachten).
                 </TextBlock>
 
-                <TextBlock Text="Sonderkarten / Wechselwirkungen" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <!-- Sonderkarten mit Bildern -->
+                <TextBlock Text="Sonderkarten" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            - Zauberer und Drache sind "magische" Karten und haben spezielle Gewinnregeln.<LineBreak/>
-            - Fee und Narr gelten als "Fool" und interagieren mit magischen Karten – z. B. schränkt die Kombination aus Drache+Zauberer die möglichen Züge ein: besitzt ein Spieler nur eine Fee, kann nur diese gelegt werden.<LineBreak/>
-            - Jongleur löst eine kurze Juggle-Phase aus: das Spiel wechselt in den JUGGLING-Modus, in dem Spieler eine spezielle Aktion wählen können.<LineBreak/>
-            - Wird eine Bombe gelegt, darf der bombenlegende Spieler die erste Karte des nächsten Stichs ausspielen, aber der Stich selbst zählt nicht als gewonnen.
+                    Die folgenden Karten sind speziell und verändern Spielregeln oder Stichwert.
                 </TextBlock>
 
-                <TextBlock Text="Auswertung / Punkte" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <!-- Zauberer / Wizard -->
+                <Grid Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Special5.jpg" Width="88" Height="88" Margin="6" Stretch="Uniform" AutomationProperties.Name="Zauberer"/>
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <TextBlock Text="Zauberer" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,4,0,0">
+                            Der Zauberer schlägt alle normalen Karten und gewinnt den Stich, außer er trifft auf einen Drache (siehe Drache) oder auf spezielle Interaktionen mit Narren/Fee. Wird ein Zauberer gespielt, spielt seine Person keine Trumpfrolle.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Drache / Dragon -->
+                <Grid Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Special6.jpg" Width="88" Height="88" Margin="6" Stretch="Uniform" AutomationProperties.Name="Drache"/>
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <TextBlock Text="Drache" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,4,0,0">
+                            Der Drache schlägt alle normalen Karten und kann auch gegen Zauberer spezielle Regeln haben (z. B. Einschränkungen, welche Karten danach gelegt werden dürfen). Wird ein Drache gezogen, kann das die Trumpf-Wahl beeinflussen.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Fee / Fairy -->
+                <Grid Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Special3.jpg" Width="88" Height="88" Margin="6" Stretch="Uniform" AutomationProperties.Name="Fee"/>
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <TextBlock Text="Fee" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,4,0,0">
+                            Die Fee interagiert mit magischen Karten: Sie kann eine Kombination mit dem Drachen erzeugen, die einen Bonuspunkt („Fairy-Bonus“) gibt. In manchen Situationen verhindert die Fee, dass bestimmte magische Karten ihren üblichen Effekt haben.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Narr / Fool (Jester) -->
+                <Grid Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Special2.jpg" Width="88" Height="88" Margin="6" Stretch="Uniform" AutomationProperties.Name="Narr"/>
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <TextBlock Text="Narr" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,4,0,0">
+                            Der Narr ist eine „Null“-Karte: Er kann keinen Stich für sich beanspruchen, sondern beeinflusst die Auswertung, wenn nur Narren gespielt werden. Er interagiert außerdem mit Zauberer und Drache in speziellen Rangregeln.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Bombe / Bomb -->
+                <Grid Margin="0,6,0,6">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Special4.jpg" Width="88" Height="88" Margin="6" Stretch="Uniform" AutomationProperties.Name="Bombe"/>
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <TextBlock Text="Bombe" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,4,0,0">
+                            Wenn eine Bombe gespielt wird, zählt der resultierende Stich nicht als gewonnen für die Bombenwerferin/den Bombenwerfer (er wird neutralisiert). Derjenige, der die Bombe legt, darf die erste Karte des nächsten Stiches ausspielen.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Jongleur / Juggler -->
+                <Grid Margin="0,6,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="100"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="/Assets/Special7.jpg" Width="88" Height="88" Margin="6" Stretch="Uniform" AutomationProperties.Name="Jongleur"/>
+                    <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                        <TextBlock Text="Jongleur" FontWeight="Bold"/>
+                        <TextBlock TextWrapping="Wrap" Margin="0,4,0,0">
+                            Der Jongleur löst eine Juggle-Phase aus: Spiel wird kurz angehalten und betroffene Spieler wählen eine Sonderaktion (z. B. Karte tauschen, zusätzliche Aktion). Die genaue Aktion ist abhängig von den Hausregeln oder der implementierten Spielmechanik.
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+
+                <!-- Punkte -->
+                <TextBlock Text="Punkteberechnung" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            - Nach Abschluss aller Stiche einer Runde werden die Punkte berechnet.<LineBreak/>
-            - Punkteformel: Gibt es mindestens eine Kombination eines Stichs mit Drache + Fee, gibt das einen Bonuspunkt (fairyTale).<LineBreak/>
-            - Ist die Vorhersage korrekt, erhält der Spieler 2 + Anzahl gewonnener Stiche + eventuell Fairy-Bonus. Ist die Vorhersage falsch, gibt es -|Differenz| Punkte + eventuell Fairy-Bonus.
+                    - Korrekte Vorhersage: 2 + Anzahl der gewonnenen Stiche (+ eventueller Fairy-Bonus).<LineBreak/>
+                    - Fehlerhafte Vorhersage: -|Differenz| Punkte (+ eventuell Fairy-Bonus).<LineBreak/>
+                    - Example: Vorhergesagte Stiche = 2, tatsächliche Stiche = 4 → Differenz = 2 → Punkte = -2.
                 </TextBlock>
 
-                <TextBlock Text="Ende des Spiels" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
-                <TextBlock TextWrapping="Wrap" Margin="0,0,0,10">
-            Das Spiel endet, wenn die nächste Runde die maximal erlaubte Rundenzahl überschreitet. Am Ende wird die Gesamtpunktzahl der Spieler verglichen.
-                </TextBlock>
-
-                <TextBlock Text="Tipps / Hinweise für Spieler" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
+                <!-- Tipps -->
+                <TextBlock Text="Tipps für Anfänger" FontSize="18" FontWeight="Bold" Margin="0,0,0,6"/>
                 <TextBlock TextWrapping="Wrap" Margin="0,0,0,20">
-            - Versuchen Sie, Ihre Vorhersage realistisch einzuschätzen; ein exakter Treffer bringt den höchsten Bonus.<LineBreak/>
-            - Beobachten Sie, welche Farben andere Spieler nicht mehr bedienen können.<LineBreak/>
-            - Nutze Spezialkarten taktisch: Zauberer/Drache können Stiche entscheiden, Fee kann Interaktionen verändern, Jongleur löst Sondermechanik aus.
+                    - Schätze deine Chancen realistisch ein. Kleine Überschätzungen können stark bestraft werden.<LineBreak/>
+                    - Merke dir ausgespielte Farben, um zu wissen, welche Spieler nichts mehr bedienen können.<LineBreak/>
+                    - Spezialkarten sind taktisch mächtig: Nutze Zauberer/Drache, um Stiche zu sichern; Fee für Bonuskombinationen; Jongleur für Überraschungsaktionen.
                 </TextBlock>
 
             </StackPanel>

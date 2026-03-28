@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using Stiche_Zaubern_MsgpLib;
 
 namespace Stiche_zaubern
 {
@@ -8,12 +10,12 @@ namespace Stiche_zaubern
         public SortedSet<Card> UnknownCards { get; private set; }
 
         private readonly PlayerInRound player;
-        private readonly SortedSet<Card> hand;
+        private readonly ImmutableSortedSet<Card> hand;
 
         public AIUnknownCardsHelper(PlayerInRound player)
         {
             this.player = player;
-            hand = player.hand;
+            hand = player.Hand;
             updateUnknownCards();
             this.player = player;
         }

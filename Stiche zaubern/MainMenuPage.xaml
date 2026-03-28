@@ -9,6 +9,7 @@
 
     <Grid Background="{ThemeResource SystemControlBackgroundAccentBrush}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Button x:Name="ContinueButton" x:Uid="ContinueButton" Click="ContinueButton_Click" Style="{StaticResource XboxButtonStyle}" Width="200"/>
             <Button x:Uid="NewGameButton" Click="NewGameButton_Click" Style="{StaticResource XboxButtonStyle}" Width="200"/>
             <Button x:Uid="HighscoreButton" Click="HighscoreButton_Click" Style="{StaticResource XboxButtonStyle}" Width="200"/>
             <Button x:Uid="NetworkHostButton" Click="NetworkHost_Click" Style="{StaticResource XboxButtonStyle}" Width="200" IsEnabled="True"/>

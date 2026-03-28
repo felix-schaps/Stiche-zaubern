@@ -29,6 +29,7 @@ namespace MsgPackDataEditor
         private Dictionary<string, IDataInterpreter> knownTypes = new Dictionary<string, IDataInterpreter>()
         {
             {"Highscores", new DataInterpreter<List<HighscoreEntry>>()},
+            {"SaveGame", new DataInterpreter<SaveGame>()},
         };
 
         private IDataInterpreter selectedInterpreter;

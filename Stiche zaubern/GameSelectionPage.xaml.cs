@@ -23,13 +23,16 @@ namespace Stiche_zaubern
         {
             List<Player> list = new List<Player>
             {
-                new ActivePlayer(txtbox_playername.Text, 0, DisplayManager.GridActivePlayer)
+                new ActivePlayer(new Stiche_Zaubern_MsgpLib.Player() { Name = txtbox_playername.Text, Id = 0 }, DisplayManager.GridActivePlayer)
             };
 
             byte ai_players = (byte)(combo_ai_players.SelectedIndex + 2);
             for (byte i = 0; i < ai_players; i++)
             {
-                list.Add(new AIPlayer("AI-Player" + i, (byte)(i + 1), DisplayManager.GridsOtherPlayers[i]));
+                list.Add(new AIPlayer(
+                    new Stiche_Zaubern_MsgpLib.Player { Name = "AI-Player" + i, Id = (byte)(i + 1) },
+                    DisplayManager.GridsOtherPlayers[i]
+                ));
             }
 
             return list;

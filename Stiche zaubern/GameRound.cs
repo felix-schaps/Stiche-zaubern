@@ -10,47 +10,49 @@ namespace Stiche_zaubern
         public Trick ActiveTrick { get; private set; }
         public CardColor TrumpColor
         {
-            get => _trumpColor;
+            get => _roundLib.TrumpColor;
             set
             {
                 if (!IsChoosableTrumpf())
                 {
                     throw new Exception("Illegal reset of Trumpf color");
                 }
-                _trumpColor = value;
+                _roundLib.TrumpColor = value;
                 RoundMode = RoundMode.GUESSING;
             }
         }
         public Card TrumpCard
         {
-            get => _trumpCard;
+            get => GameInfo.GetDeck().Decode(_roundLib.TrumpCardId);
             private set
             {
-                _trumpCard = value;
-                _trumpColor = value.color;
+                _roundLib.TrumpCardId = GameInfo.GetDeck().Encode(value);
+                _roundLib.TrumpColor = value.color;
 
-                DisplayManager.getPicTrumpCard().Source = TrumpCard.getPictureSource();
+                DisplayManager.getPicTrumpCard().Source = value.getPictureSource();
             }
         }
-        public int NumberRound { get; private set; }
-        public RoundMode RoundMode { get; private set; }
+        public byte NumberRound { get => _roundLib.NrRound; private set => _roundLib.NrRound = value; }
+        public RoundMode RoundMode { get => _roundLib.RoundMode; private set => _roundLib.RoundMode = value; }
+
         public GuessHelper GuessHelper { get; private set; }
 
         private Trick bombedTrick;
         private Dictionary<CardColor, List<PlayerInRound>> dicHelpColorCannotFollowSuitBy;
         private int beginWithPlayer;
         private Dictionary<Player, PlayerInRound> dicPlayersInRound;
-        private CardColor _trumpColor;
-        private Card _trumpCard;
 
-        public GameRound(int numberRound, List<Player> players)
+        private Stiche_Zaubern_MsgpLib.GameRound _roundLib;
+
+        public GameRound(byte numberRound, List<Player> players)
         {
+            _roundLib = new Stiche_Zaubern_MsgpLib.GameRound();
             _ = new ActiveRoundInfo(this);
             NumberRound = numberRound;
             RoundMode = RoundMode.GUESSING;
             GuessHelper = new GuessHelper(this);
             bombedTrick = null;
-
+            _roundLib.Tricks = new List<Stiche_Zaubern_MsgpLib.Trick>();
             initializePlayers(players);
 
             beginWithPlayer = (numberRound - 1) % GameInfo.GetNumPlayers();
@@ -76,7 +78,7 @@ namespace Stiche_zaubern
             {
                 throw new Exception("Illegal guess");
             }
-            playerInRound.guessedTricks = guess;
+            playerInRound.GuessedTricks = guess;
         }
         public void ProcJuggle(Player player, Card card)
         {
@@ -141,28 +143,11 @@ namespace Stiche_zaubern
         public List<Card> GetPlayedCards()
         {
             List<Card> cards = new List<Card>();
-            foreach (PlayerInRound player in GetPlayersInRound())
+            foreach(Stiche_Zaubern_MsgpLib.Trick trickLib in _roundLib.Tricks)
             {
-                foreach (Trick stich in player.tricks)
+                foreach (byte cardId in trickLib.Cards.Values)
                 {
-                    cards = cards.Union(stich.getCards()).ToList();
-                }
-            }
-            if (ActiveTrick != null)
-            {
-                foreach (Player player in dicPlayersInRound.Keys)
-                {
-                    if (ActiveTrick.hasLaidDown(player))
-                    {
-                        cards.Add(ActiveTrick.getCardOfPlayer(player));
-                    }
-                }
-            }
-            if (bombedTrick != null)
-            {
-                foreach (Player player in dicPlayersInRound.Keys)
-                {
-                    cards.Add(bombedTrick.getCardOfPlayer(player));
+                    cards.Add(GameInfo.GetDeck().Decode(cardId));
                 }
             }
 
@@ -214,9 +199,9 @@ namespace Stiche_zaubern
             }
             else
             {
-                lucky.giveTrick(ActiveTrick);
+               dicPlayersInRound[lucky].giveTrick(ActiveTrick);
             }
-            beginWithPlayer = lucky.id;
+            beginWithPlayer = lucky.Id;
         }
         public PlayerInRound GetPlayerInRound(Player player)
         {
@@ -238,6 +223,8 @@ namespace Stiche_zaubern
         {
             dicPlayersInRound = new Dictionary<Player, PlayerInRound>();
             dicHelpColorCannotFollowSuitBy = new Dictionary<CardColor, List<PlayerInRound>>();
+            _roundLib.PlayersInRound = new List<Stiche_Zaubern_MsgpLib.PlayerInRound>();
+
             foreach (CardColor color in Enum.GetValues(typeof(CardColor)))
             {
                 dicHelpColorCannotFollowSuitBy.Add(color, new List<PlayerInRound>());
@@ -245,7 +232,17 @@ namespace Stiche_zaubern
 
             foreach (Player player in players)
             {
-                dicPlayersInRound.Add(player, new PlayerInRound(player));
+                var playerInRoundLib = new Stiche_Zaubern_MsgpLib.PlayerInRound
+                {
+                    PlayerId = player.Id,
+                    NrRound = NumberRound,
+                    Hand = new List<byte>(),
+                    HasChosenJugglingCard = false,
+                    GuessedTricks = -1,
+                    Tricks = new List<int>()
+                };
+                _roundLib.PlayersInRound.Add(playerInRoundLib);
+                dicPlayersInRound.Add(player, new PlayerInRound(player, playerInRoundLib));
             }
 
             if (dicPlayersInRound.Count != GameInfo.GetNumPlayers())
@@ -300,7 +297,19 @@ namespace Stiche_zaubern
                 numberNewTrick = ActiveTrick.Number + 1;
             }
 
-            ActiveTrick = new Trick(numberNewTrick, this);
+            Stiche_Zaubern_MsgpLib.Trick trickLib = new Stiche_Zaubern_MsgpLib.Trick
+            {
+                Number = numberNewTrick,
+                Cards = new Dictionary<byte, byte>()
+            };
+            _roundLib.Tricks.Add(trickLib);
+
+            ActiveTrick = new Trick(this,trickLib);
+        }
+
+        public Stiche_Zaubern_MsgpLib.GameRound getGameRoundLib()
+        {
+            return _roundLib;
         }
     }
 

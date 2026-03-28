@@ -16,9 +16,9 @@ namespace Stiche_zaubern
         public AIPlayerInTrick(PlayerInRound player, AIPlayerInRound aiPlayer)
         {
             aiCards = new Dictionary<Card, AICard>();
-            player.hand.ToList().ForEach(k => aiCards.Add(k, new AICard(k, aiPlayer)));
-            NumWizards = CardsCalculations.getNumWizardsOrDragons(player.hand.ToList());
-            NumFools = CardsCalculations.getNumFools(player.hand.ToList());
+            player.Hand.ToList().ForEach(k => aiCards.Add(k, new AICard(k, aiPlayer)));
+            NumWizards = CardsCalculations.getNumWizardsOrDragons(player.Hand.ToList());
+            NumFools = CardsCalculations.getNumFools(player.Hand.ToList());
             unknownHelper = new AIUnknownCardsHelper(player);
             logCalc = new CalculatorLogisticValue(1.5);
         }

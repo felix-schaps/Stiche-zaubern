@@ -1,26 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Stiche_Zaubern_MsgpLib;
 
 namespace Stiche_zaubern
 {
     public class Trick
     {
         public CardColor followColor { get; private set; }
-        public int Number { get; private set; }
+        public int Number { get => _trickLib.Number; private set => _trickLib.Number = value; }
 
+        private Stiche_Zaubern_MsgpLib.Trick _trickLib;
         private readonly Dictionary<Player, Card> cards;
         private readonly GameRound round;
 
-        public Trick(int number, GameRound round)
+        public Trick(GameRound round, Stiche_Zaubern_MsgpLib.Trick trickLib)
         {
+            _trickLib = trickLib;
             cards = new Dictionary<Player, Card>();
             followColor = CardColor.SPECIAL;
-            Number = number;
             this.round = round;
         }
 
-        public void addCardToTrick(Player key, Card karte)
+        public void AddCardToTrick(Player key, Card karte)
         {
             NotActiveGameRoundException.Check(round);
 
@@ -34,6 +36,7 @@ namespace Stiche_zaubern
             }
 
             cards.Add(key, karte);
+            _trickLib.Cards.Add(key.Id, GameInfo.GetDeck().Encode(karte));
 
             if (karte.color != followColor && karte.color != CardColor.SPECIAL)
             {

@@ -83,8 +83,8 @@ namespace Stiche_zaubern
                 Player player = game.Players[i];
                 if (player is RemotePlayer remotePlayer && remotePlayer.Listener.stream == stream)
                     message.ActivePlayer = i;
-                strings[i] =player.name;
-                bytes[i] = player.id;
+                strings[i] =player.Name;
+                bytes[i] = player.Id;
             }
             message.PlayerIds = bytes;
             message.PlayerNames = strings;

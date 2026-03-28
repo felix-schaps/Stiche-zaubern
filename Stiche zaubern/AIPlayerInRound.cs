@@ -21,8 +21,8 @@ namespace Stiche_zaubern
         {
             activeHelper = new AIPlayerInTricking(player, this);
             activeHelper.updateAICards(otherPlayers);
-            player.hand.ToList().ForEach(k => activeHelper.getAICard(k).setLosingIt());
-            return AIJugglingCardCalculator.choose(activeHelper, player.hand.ToList());
+            player.Hand.ToList().ForEach(k => activeHelper.getAICard(k).setLosingIt());
+            return AIJugglingCardCalculator.choose(activeHelper, player.Hand.ToList());
         }
 
         public Card chooseCard(List<Card> beatCards, List<Card> losingCards, List<PlayerInRound> playersToCome, List<PlayerInRound> otherPlayers)
@@ -77,7 +77,7 @@ namespace Stiche_zaubern
 
         private bool isCardStillDangerous(Card card, AIPlayerInTrick simHelper, List<PlayerInRound> otherPlayers)
         {
-            List<Card> simHand = new List<Card>(player.hand);
+            List<Card> simHand = new List<Card>(player.Hand);
             _ = simHand.Remove(card);
             simHand.ForEach(k => simHelper.getAICard(k).setWinningProbLive(otherPlayers, simHelper.unknownHelper));
             return !simHand.Any(k => simHelper.getAICard(k).winningProb < 0.5);
@@ -136,7 +136,7 @@ namespace Stiche_zaubern
             helper = new AIPlayerInTrick(player, this);
             helper.updateAICards(otherPlayers);
             double overGuessing = ActiveRoundInfo.getActiveGuessHelper().getOverGuessingNormalized();
-            return Math.Min(helper.SumGuessing - getGuessTwisting(overGuessing, otherPlayers.Count), player.hand.Count - helper.NumFools);
+            return Math.Min(helper.SumGuessing - getGuessTwisting(overGuessing, otherPlayers.Count), player.Hand.Count - helper.NumFools);
         }
 
         public double getGuessingVariance()
@@ -146,7 +146,7 @@ namespace Stiche_zaubern
 
         private double getGuessTwisting(double overGuessing, int numOtherPlayers)
         {
-            return overGuessing * 0.6 / Math.Sqrt(player.hand.Count);
+            return overGuessing * 0.6 / Math.Sqrt(player.Hand.Count);
         }
     }
 }

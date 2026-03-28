@@ -279,4 +279,7 @@
   <data name="IPNotFound" xml:space="preserve">
     <value>IP-Adresse nicht ermittelt.</value>
   </data>
+  <data name="ContinueButton.Content" xml:space="preserve">
+    <value>Letztes Spiel fortführen</value>
+  </data>
 </root>

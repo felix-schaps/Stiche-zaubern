@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
@@ -7,7 +8,7 @@ namespace Stiche_zaubern
     public abstract class DisplayPlayer
     {
         public Grid grid { get; protected set; }
-        public abstract void displayGivenCards(SortedSet<Card> cards);
+        public abstract void displayGivenCards(ImmutableSortedSet<Card> cards);
 
         protected DisplayPlayer(Grid grid)
         {

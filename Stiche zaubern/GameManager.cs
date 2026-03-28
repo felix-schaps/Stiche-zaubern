@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Threading.Tasks;
+using MessagePack;
 using Stiche_Zaubern_MsgpLib;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -13,6 +15,9 @@ namespace Stiche_zaubern
         public static int UPDATE_RATE { get; } = 50;
         public static int WAIT_THINKING { get; } = 500;
         public static int WAIT_TRICK_SHOW { get; } = 3000;
+
+        private readonly static string filePath = "\\SaveGame.dat";
+        private readonly static string localFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 
         private static GameManager Instance;
         private GameModeManager _gameModeManager;
@@ -45,8 +50,28 @@ namespace Stiche_zaubern
             }
 
             Instance.talkManager?.SendDisconnect();
+
+            SaveGame();
+
             _ = Window.Current.Content is Frame frame ? frame.Navigate(typeof(MainMenuPage)) : throw new Exception("Cannot navigate");
             Instance.Dispose();
+        }
+
+
+        private static void SaveGame()
+        {
+            SaveGame saveGame = new SaveGame()
+            {
+                GameType = GameInfo.GetGameType(),
+                Players = GameInfo.GetPlayers().Select(p => p.getPlayerLib()).ToList(),
+                ActivePlayerId = GameInfo.GetActivePlayer().Id,
+                ActiveRound = Instance.game.GetActiveRound().getGameRoundLib(),
+                RoundMode = Instance.game.GetActiveRound().RoundMode,
+                PlayerQueue = Instance._gameModeManager.GetPlayerQueue()
+            };
+        // Serialisieren und in Datei schreiben (korrekte MessagePack API verwenden)
+        byte[] bytes = MessagePackSerializer.Serialize<SaveGame>(saveGame);
+        System.IO.File.WriteAllBytes(localFolder + filePath, bytes);
         }
 
         public static void skipAnimation()
@@ -107,6 +132,21 @@ namespace Stiche_zaubern
             talkManager.SendGame(game);
             procNewRound();
         }
+
+        public GameManager()
+        {
+            //Zum Laden eines Spiels aufgerufen
+            if (Instance != null)
+            {
+                Dispose();
+            }
+            Instance = this;
+            this.game = null;//TODO: Spiel aus Datei laden und zuweisen
+            talkManager = game.TalkManager;
+            _requestHandler = new RequestHandler();
+            // Am Kontrollpunkt nach dem Laden des Spiels die GameModeManager entsprechend weiterfahren
+        }
+
         public void Dispose()
         {
             Instance = null;
@@ -120,9 +160,9 @@ namespace Stiche_zaubern
 
     public class GenericHelper<T>
     {
-        public static SortedSet<T> makeSet(params T[] values)
+        public static ImmutableSortedSet<T> makeSet(params T[] values)
         {
-            return new SortedSet<T>(values.ToHashSet());
+            return values.ToImmutableSortedSet();
         }
     }
 }

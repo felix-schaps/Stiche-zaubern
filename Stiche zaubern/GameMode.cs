@@ -61,6 +61,11 @@ namespace Stiche_zaubern
             requestHandler.SkipRequest = false;
         }
 
+        public List<byte> GetPlayerQueue()
+        {
+            return _players.Select(p => p.Id).ToList();
+        }
+
         protected GameModeManager()
         {
             activePlayer = GameInfo.GetActivePlayer();
@@ -74,7 +79,7 @@ namespace Stiche_zaubern
             while (_players.Count > 0 && !requestHandler.CancelRequest)
             {
                 Player player = _players.Dequeue();
-                DisplayManager.getGameTextBlock().Text = "Spieler " + player.name + " ist am Zug.";
+                DisplayManager.getGameTextBlock().Text = "Spieler " + player.Name + " ist am Zug.";
                 if (player is ActivePlayer && !activePlayerAlreadyPlayer)
                 {
                     prepareForActivePlayer();
@@ -199,7 +204,7 @@ namespace Stiche_zaubern
             Trick trick = ActiveRound.ActiveTrick;
             Card card = arg is Card _card ? _card : throw new Exception("Expected a card and got something different.");
             TalkManager.Talk(GamingMessageDecoder.CreateTrickingMessage(player, card));
-            trick.addCardToTrick(player, card);
+            trick.AddCardToTrick(player, card);
             await displayCardAtTrickBoard(player, card, !activePlayer);
         }
 
@@ -415,19 +420,19 @@ namespace Stiche_zaubern
             int pointsLast = 1000;
             foreach (Player player in GameInfo.GetPlayers())
             {
-                if (player.points > pointsBest)
+                if (player.Points > pointsBest)
                 {
-                    pointsBest = player.points;
+                    pointsBest = player.Points;
                 }
 
-                if (player.points < pointsLast)
+                if (player.Points < pointsLast)
                 {
-                    pointsLast = player.points;
+                    pointsLast = player.Points;
                 }
             }
 
-            new HighscoreManager().WriteHighscore(activePlayer.name,
-                activePlayer.points,
+            new HighscoreManager().WriteHighscore(activePlayer.Name,
+                activePlayer.Points,
                 GameInfo.GetPlacement(activePlayer),
                 GameInfo.GetNumPlayers() - 1,
                 GameInfo.GetGameType(),

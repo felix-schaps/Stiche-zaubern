@@ -244,7 +244,7 @@ namespace Stiche_zaubern
             ComboBox[] playerCombos = { combo_player2, combo_player3, combo_player4, combo_player5, combo_player6 };
             List<Player> players = new List<Player>
             {
-                new ActivePlayer(txtbox_playername.Text, 0, DisplayManager.GridActivePlayer)
+                new ActivePlayer(new Stiche_Zaubern_MsgpLib.Player() { Name = txtbox_playername.Text, Id = 0 }, DisplayManager.GridActivePlayer)
             };
             byte iRemotePlayer = 0;
             byte iAIPlayer = 0;
@@ -254,7 +254,10 @@ namespace Stiche_zaubern
             {
                 if (slot.status == SlotStatus.REMOTE_PLAYER)
                 {
-                    Player player = new RemotePlayer(slot.listener.GetName(), iTotalPlayer, DisplayManager.GridsOtherPlayers[iTotalPlayer - 1], slot.listener);
+                    Player player = new RemotePlayer(
+                        new Stiche_Zaubern_MsgpLib.Player { Name = slot.listener.GetName(), Id = iTotalPlayer },
+                        DisplayManager.GridsOtherPlayers[iTotalPlayer - 1],
+                        slot.listener);
                     players.Add(player);
                     talkDic.Add(player, slot.talker);
                     iRemotePlayer++;
@@ -262,7 +265,7 @@ namespace Stiche_zaubern
                 else if (slot.status == SlotStatus.AI_PLAYER)
                 {
                     iAIPlayer++;
-                    players.Add(new AIPlayer("AI-Player" + iAIPlayer, iTotalPlayer, DisplayManager.GridsOtherPlayers[iTotalPlayer - 1]));
+                    players.Add(new AIPlayer(new Stiche_Zaubern_MsgpLib.Player { Name = "AI-Player" + iAIPlayer, Id = iTotalPlayer }, DisplayManager.GridsOtherPlayers[iTotalPlayer - 1]));
                 }
                 iTotalPlayer++;
             }

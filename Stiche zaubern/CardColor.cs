@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Stiche_Zaubern_MsgpLib;
 
 namespace Stiche_zaubern
 {
@@ -9,10 +10,7 @@ namespace Stiche_zaubern
         JERK = 2, FAIRY = 3, BOMB = 4, WIZARD = 5, DRAGON = 6, JUGGLER = 7
     }
 
-    public enum CardColor
-    {
-        KARO, HERZ, PIK, KREUZ, SPECIAL
-    }
+    
     public static class CardColorExtensions
     {
         public static string getColorName(this CardColor color)

@@ -143,9 +143,9 @@ namespace Stiche_zaubern
             for (byte i = 0; i < numPlayers; i++)
             {
                 if (i == gameInfoMsg.ActivePlayer)
-                    players.Add(new ActivePlayer(gameInfoMsg.PlayerNames[i], gameInfoMsg.PlayerIds[i], DisplayManager.GridActivePlayer));
+                    players.Add(new ActivePlayer(new Stiche_Zaubern_MsgpLib.Player { Name = gameInfoMsg.PlayerNames[i], Id = gameInfoMsg.PlayerIds[i] }, DisplayManager.GridActivePlayer));
                 else
-                    players.Add(new RemotePlayer(gameInfoMsg.PlayerNames[i], gameInfoMsg.PlayerIds[i], DisplayManager.GridsOtherPlayers[(i + gameInfoMsg.ActivePlayer-1) % numPlayers], this));
+                    players.Add(new RemotePlayer(new Stiche_Zaubern_MsgpLib.Player { Name = gameInfoMsg.PlayerNames[i], Id = gameInfoMsg.PlayerIds[i] }, DisplayManager.GridsOtherPlayers[(i + gameInfoMsg.ActivePlayer-1) % numPlayers], this));
             }
             return players;
 		}

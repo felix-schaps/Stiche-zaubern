@@ -7,7 +7,7 @@ namespace Stiche_zaubern
         public readonly GamingMessage GamingMessage;
         public RoundMode GetRoundMode() { return GamingMessage.RoundMode; }
 
-        public Player GetPlayer() { return GameInfo.GetPlayers().First(player => player.id == GamingMessage.PlayerId); }
+        public Player GetPlayer() { return GameInfo.GetPlayers().First(player => player.Id == GamingMessage.PlayerId); }
         public object GetArg()
         {
             RoundMode roundMode = GetRoundMode();
@@ -30,26 +30,26 @@ namespace Stiche_zaubern
         public static GamingMessageDecoder CreateTrickingMessage(Player player, Card card)
         {
             GamingMessage message = new GamingMessage()
-            { RoundMode = RoundMode.TRICKING, PlayerId = player.id, Arg = GameInfo.GetDeck().Encode(card) };
+            { RoundMode = RoundMode.TRICKING, PlayerId = player.Id, Arg = GameInfo.GetDeck().Encode(card) };
             return new GamingMessageDecoder(message);
         }
         public static GamingMessageDecoder CreateJugglingMessage(Player player, Card card)
         {
             GamingMessage message = new GamingMessage()
-            { RoundMode = RoundMode.JUGGLING, PlayerId = player.id, Arg = GameInfo.GetDeck().Encode(card) };
+            { RoundMode = RoundMode.JUGGLING, PlayerId = player.Id, Arg = GameInfo.GetDeck().Encode(card) };
             return new GamingMessageDecoder(message);
         }
         public static GamingMessageDecoder CreateGuessingMessage(Player player, int guess)
         {
             GamingMessage message = new GamingMessage()
-            { RoundMode = RoundMode.GUESSING, PlayerId = player.id, Arg = (byte) guess };
+            { RoundMode = RoundMode.GUESSING, PlayerId = player.Id, Arg = (byte) guess };
             return new GamingMessageDecoder(message);
         }
 
         public static GamingMessageDecoder CreateChoosingTrumpMessage(Player player, CardColor color)
         {
             GamingMessage message = new GamingMessage()
-            { RoundMode = RoundMode.TRICKING, PlayerId = player.id, Arg = (byte) color };
+            { RoundMode = RoundMode.TRICKING, PlayerId = player.Id, Arg = (byte) color };
             return new GamingMessageDecoder(message);
         }
 

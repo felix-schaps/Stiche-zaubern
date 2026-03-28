@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Immutable;
 using Windows.UI.Xaml.Controls;
 
 namespace Stiche_zaubern
@@ -7,7 +7,7 @@ namespace Stiche_zaubern
     {
         public DisplayOtherPlayer(Grid position) : base(position) { }
 
-        public override void displayGivenCards(SortedSet<Card> cards)
+        public override void displayGivenCards(ImmutableSortedSet<Card> cards)
         {
 
         }

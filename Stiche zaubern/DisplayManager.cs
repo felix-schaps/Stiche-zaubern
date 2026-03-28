@@ -37,11 +37,11 @@ namespace Stiche_zaubern
         {
             foreach (Player player in GameInfo.GetPlayers())
             {
-                string name = player.name;
+                string name = player.Name;
                 PlayerInRound playerInRound = player.getPlayerInActiveRound();
                 int wonHands = playerInRound.getNumberOfWonHands();
-                int points = player.points;
-                int stiche = playerInRound.guessedTricks;
+                int points = player.Points;
+                int stiche = playerInRound.GuessedTricks;
                 player.display.displayText(name, stiche, wonHands, points);
             }
         }

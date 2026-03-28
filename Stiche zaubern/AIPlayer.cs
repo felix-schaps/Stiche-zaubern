@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Stiche_Zaubern_MsgpLib;
 using Windows.UI.Xaml.Controls;
 
 namespace Stiche_zaubern
@@ -9,7 +10,7 @@ namespace Stiche_zaubern
     {
         private AIPlayerInRound activeAI;
 
-        public AIPlayer(string name, byte id, Grid position) : base(name, id)
+        public AIPlayer(Stiche_Zaubern_MsgpLib.Player playerLib, Grid position) : base(playerLib)
         {
             display = new DisplayOtherPlayer(position);
         }
@@ -22,7 +23,7 @@ namespace Stiche_zaubern
                 .Where(p => !stich.hasLaidDown(p) && p != this)
                 .Select(p => p.getPlayerInActiveRound()).ToList();
 
-            List<Card> validCards = playerInRound.hand.Where(x => playerInRound.isLegalMove(stich)[x]).ToList();
+            List<Card> validCards = playerInRound.Hand.Where(x => playerInRound.isLegalMove(stich)[x]).ToList();
             List<Card> beatCards = validCards.Where(x => stich.beatenBy(x)).ToList();
             List<Card> losingCards = validCards.Where(x => !stich.beatenBy(x)).ToList();
 
@@ -30,7 +31,7 @@ namespace Stiche_zaubern
         }
         public CardColor chooseTrump()
         {
-            return AITrumpChoosingCalculator.choose(getPlayerInActiveRound().hand);
+            return AITrumpChoosingCalculator.choose(getPlayerInActiveRound().Hand);
         }
         public override void giveCards(List<Card> cards)
         {

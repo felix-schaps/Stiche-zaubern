@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
+using Stiche_Zaubern_MsgpLib;
 
 namespace Stiche_zaubern
 {
     public class AITrumpChoosingCalculator
     {
-        public static CardColor choose(SortedSet<Card> cards)
+        public static CardColor choose(ImmutableSortedSet<Card> cards)
         {
             int max = 0;
             CardColor argmax = CardColor.KREUZ;

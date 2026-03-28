@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
+using System.Collections.Immutable;
 
 namespace Stiche_zaubern
 {
     public abstract class Player
     {
-        public string name { get; private set; }
-        public byte id { get; private set; }
-        public int points { get; private set; }
+        public string Name { get =>_playerLib.Name; set => _playerLib.Name = value; }
+        public byte Id { get=> _playerLib.Id; private set => _playerLib.Id = value; }
+        public int Points { get => _playerLib.Points; private set => _playerLib.Points = value; }
         public DisplayPlayer display { get; protected set; }
-        protected Player(string name, byte id)
+
+        private Stiche_Zaubern_MsgpLib.Player _playerLib;
+        protected Player(Stiche_Zaubern_MsgpLib.Player playerLib)
         {
-            this.name = name;
-            points = 0;
-            this.id = id;
+            _playerLib = playerLib;
         }
 
         public PlayerInRound getPlayerInActiveRound()
@@ -22,23 +23,18 @@ namespace Stiche_zaubern
 
         public void updatePoints()
         {
-            points += getPlayerInActiveRound().calculatePoints();
+            Points += getPlayerInActiveRound().calculatePoints();
         }
 
         public virtual void giveCards(List<Card> cards)
         {
-            giveCards(new SortedSet<Card>(cards));
+            giveCards(cards.ToImmutableSortedSet());
         }
 
-        public virtual void giveCards(SortedSet<Card> cards)
+        public virtual void giveCards(ImmutableSortedSet<Card> cards)
         {
             getPlayerInActiveRound().giveCards(cards);
-            display.displayGivenCards(getPlayerInActiveRound().hand);
-        }
-
-        public virtual void giveTrick(Trick stich)
-        {
-            getPlayerInActiveRound().giveTrick(stich);
+            display.displayGivenCards(getPlayerInActiveRound().Hand);
         }
 
         public virtual void popCard(Card popping)
@@ -50,6 +46,13 @@ namespace Stiche_zaubern
         {
             getPlayerInActiveRound().giveJugglingCard(card);
         }
+
+        public Stiche_Zaubern_MsgpLib.Player getPlayerLib()
+        {
+            return _playerLib;
+        }
+
+
     }
 
 }

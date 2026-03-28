@@ -34,7 +34,7 @@ namespace Stiche_zaubern
                 return false;
             }
 
-            rounds.Add(new GameRound(nrNewRound, Players));
+            rounds.Add(new GameRound((byte)nrNewRound, Players));
             List<Card> mixedDeck = await TaskToGetMixedDeck();
             GetActiveRound().BeginRound(mixedDeck);
 
@@ -92,11 +92,11 @@ namespace Stiche_zaubern
         public static int GetPlacement(Player Player)
         {
             int pos = 1;
-            int points = Player.points;
+            int points = Player.Points;
 
             foreach (Player sPlayer in GetPlayers())
             {
-                if (sPlayer.points > points)
+                if (sPlayer.Points > points)
                 {
                     pos++;
                 }
