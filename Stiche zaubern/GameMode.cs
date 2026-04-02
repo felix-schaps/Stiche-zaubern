@@ -39,8 +39,7 @@ namespace Stiche_zaubern
 
         protected async Task wait(int time, bool skipable=true, bool reset = true)
         {
-            requestHandler.SkipRequest = false;
-            requestHandler.IsSkipable = skipable;
+            prepareSkipable(skipable);
             for (int i = 0; i < time; i += GameManager.UPDATE_RATE)
             {
                 if (requestHandler.IsToSkip())
@@ -53,6 +52,12 @@ namespace Stiche_zaubern
             {
                 resetSkipable();
             }
+        }
+
+        protected void prepareSkipable(bool skipable = true)
+        {
+            requestHandler.SkipRequest = false;
+            requestHandler.IsSkipable = skipable;
         }
 
         protected void resetSkipable()
@@ -210,6 +215,7 @@ namespace Stiche_zaubern
 
         private async Task displayCardAtTrickBoard(Player player, Card card, bool show)
         {
+            prepareSkipable();
             var cardAnim = new CardAnimation(card, requestHandler);
             if (show)
             {
@@ -281,7 +287,7 @@ namespace Stiche_zaubern
             TalkManager.Talk(GamingMessageDecoder.CreateGuessingMessage(player, guess));
             ActiveRound.ProcGuess(player, guess);
             DisplayManager.displayTexts();
-            await wait(GameManager.WAIT_THINKING, false);
+            await wait(GameManager.WAIT_THINKING, skipable : false);
         }
     }
 

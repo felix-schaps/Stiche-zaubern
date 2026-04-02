@@ -10,9 +10,9 @@ namespace Stiche_Zaubern_MsgpLib
     public class Trick
     {
         [Key(0)]
-        public int Number;
+        public int Number { get; set; }
         [Key(1)]
-        public Dictionary<byte, byte> Cards; //PlayerId, CardId
+        public Dictionary<byte, byte> Cards { get; set; } //PlayerId, CardId
 
     }
 

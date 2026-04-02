@@ -109,9 +109,42 @@ namespace MsgPackDataEditor
                 var prop = arg as PropertyInfo;
                 BuildEditor(target, prop);
             }
+            else if (arg is IList && target != null)
+            {
+                // Primitives Listen-Element ausgewaehlt
+                var elementType = arg.GetType().GetGenericArguments().FirstOrDefault();
+                var label = new TextBlock { Text = $"Element ({elementType?.Name ?? "?"})", Margin = new Thickness(0, 10, 0, 5) };
+                EditorPanel.Children.Add(label);
+                
+                var box = new TextBox { Text = target?.ToString() ?? "", Width = 200 };
+                box.TextChanged += (s, e) =>
+                {
+                    try
+                    {
+                        object converted = Convert.ChangeType(box.Text, target.GetType());
+                        var list = (IList)arg;
+                        var index = list.IndexOf(target);
+                        if (index >= 0)
+                        {
+                            list[index] = converted;
+                        }
+                    }
+                    catch { }
+                };
+                EditorPanel.Children.Add(box);
+
+                var remButton = new Button { Content = "Remove Element", Margin = new Thickness(0, 10, 0, 0) };
+                remButton.Click += (s, e) =>
+                {
+                    ((IList)arg).Remove(target);
+                    DataTree.RootNodes.Clear();
+                    selectedInterpreter.Render(DataTree, treeDict);
+                };
+                EditorPanel.Children.Add(remButton);
+            }
             else if(!selectedInterpreter.IsList(target) && selectedInterpreter.IsList(arg))
             {
-                // Listen-Element ausgewaehlt
+                // Komplexes Listen-Element ausgewaehlt
                 BuildEditor(target);
 
                 var remButton = new Button { Content = "Remove Element" };
@@ -205,9 +238,28 @@ namespace MsgPackDataEditor
                 if (parentTree == null) root.RootNodes.Add(listNode);
                 else parentTree.Children.Add(listNode);
 
-                foreach (var item in (IEnumerable)obj)
+                var elementType = type.GenericTypeArguments.FirstOrDefault();
+                var isPrimitive = elementType != null && (elementType.IsPrimitive || elementType == typeof(string));
+
+                if (isPrimitive)
                 {
-                    RenderTree(item, listNode, obj, null);
+                    // Primitive Liste: Alle Elemente in einem Knoten zusammenfassen
+                    var index = 0;
+                    foreach (var item in (IEnumerable)obj)
+                    {
+                        var primitiveNode = new TreeViewNode { Content = $"[{index}] {elementType.Name}: {item}" };
+                        treeDict.Add(primitiveNode, new Tuple<object, object>(item, obj));
+                        listNode.Children.Add(primitiveNode);
+                        index++;
+                    }
+                }
+                else
+                {
+                    // Komplexe Objekte: Normal rendern
+                    foreach (var item in (IEnumerable)obj)
+                    {
+                        RenderTree(item, listNode, obj, null);
+                    }
                 }
             }
             else if (type.IsClass && type != typeof(string))

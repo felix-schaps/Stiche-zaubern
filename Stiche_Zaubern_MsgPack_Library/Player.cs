@@ -10,11 +10,11 @@ namespace Stiche_Zaubern_MsgpLib
     public class Player
     {
         [Key(0)]
-        public byte Id;
+        public byte Id { get; set; }
         [Key(1)]
-        public string Name;
+        public string Name { get; set; }
         [Key(2)]
-        public int Points;
+        public int Points { get; set; }
     }
 
 }

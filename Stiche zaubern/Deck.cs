@@ -52,6 +52,10 @@ namespace Stiche_zaubern
 
         public Card Decode(byte id)
         {
+            if (id >= _stapel.Count)
+            {
+               return null;
+            }
             return _stapel[id];
         }
 

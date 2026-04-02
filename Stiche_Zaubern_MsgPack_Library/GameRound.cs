@@ -10,17 +10,17 @@ namespace Stiche_Zaubern_MsgpLib
     public class GameRound
     {
         [Key(0)]
-        public byte NrRound;
+        public byte NrRound { get; set; }
         [Key(1)]
-        public CardColor TrumpColor;
+        public CardColor TrumpColor { get; set; }
         [Key(2)]
-        public byte TrumpCardId;
+        public byte TrumpCardId { get; set; }
         [Key(3)]
-        public RoundMode RoundMode;
+        public RoundMode RoundMode { get; set; }
         [Key(4)]
-        public List<PlayerInRound> PlayersInRound;
+        public List<PlayerInRound> PlayersInRound { get; set; }
         [Key(5)]
-        public List<Trick> Tricks;
+        public List<Trick> Tricks { get; set; }
 
     }
 
