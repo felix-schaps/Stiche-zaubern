@@ -18,9 +18,9 @@ namespace Stiche_zaubern
             this.requestHandler = requestHandler;
             TalkManager = talkManager;
             _players = ActiveRound.GetActivePlayerQueue();
-            requestHandler.IsCanceled = false;
+            requestHandler.IsCancelable = false;
             await begin();
-            requestHandler.IsCanceled = true;
+            requestHandler.IsCancelable = true;
         }
 
         protected abstract Task begin();
@@ -68,7 +68,20 @@ namespace Stiche_zaubern
 
         public List<byte> GetPlayerQueue()
         {
-            return _players.Select(p => p.Id).ToList();
+            var queue = _players.Select(p => p.Id).ToList();
+            queue.Insert(0, activePlayer.Id);
+            return queue;
+        }
+
+        public async Task load(GameRound gameRound, RequestHandler requestHandler, NetworkTalkManager talkManager, Queue<Player> playerQueue)
+        {
+            ActiveRound = gameRound;
+            this.requestHandler = requestHandler;
+            TalkManager = talkManager;
+            _players = playerQueue;
+            requestHandler.IsCancelable = false;
+            await begin();
+            requestHandler.IsCancelable = true;
         }
 
         protected GameModeManager()
@@ -113,7 +126,7 @@ namespace Stiche_zaubern
         }
         public override async Task resume(Player activePlayer, object arg)
         {
-            requestHandler.IsCanceled = false;
+            requestHandler.IsCancelable = false;
             foreach (Button button in DisplayManager.getActivePlayerButtons())
             {
                 button.IsEnabled = false;
@@ -125,7 +138,7 @@ namespace Stiche_zaubern
             {
                 await end();
             }
-            requestHandler.IsCanceled = true;
+            requestHandler.IsCancelable = true;
         }
         protected virtual async Task end()
         {
@@ -137,7 +150,7 @@ namespace Stiche_zaubern
     {
         protected override async Task begin()
         {
-            requestHandler.IsCanceled = false;
+            requestHandler.IsCancelable = false;
             Player player = _players.Dequeue();
 
             if (player is ActivePlayer)
@@ -158,7 +171,7 @@ namespace Stiche_zaubern
             {
                 throw new Exception("Unknown instance of player!");
             }
-            requestHandler.IsCanceled = true;
+            requestHandler.IsCancelable = true;
         }
     }
 
@@ -229,7 +242,7 @@ namespace Stiche_zaubern
     {
         public override async Task resume(Player activePlayer, object arg)
         {
-            requestHandler.IsCanceled = false;
+            requestHandler.IsCancelable = false;
 
             Button fertig = DisplayManager.getGameBoardButton();
             fertig.Visibility = Visibility.Collapsed;
@@ -417,7 +430,7 @@ namespace Stiche_zaubern
 
         protected override async Task begin()
         {
-            requestHandler.IsCanceled = false;
+            requestHandler.IsCancelable = false;
 
             DisplayManager.displayTexts();
             DisplayManager.getGameTextBlock().Text = "Spielende!";
@@ -449,7 +462,7 @@ namespace Stiche_zaubern
             Button fertig = DisplayManager.getGameBoardButton();
             fertig.Visibility = Visibility.Visible;
 
-            requestHandler.IsCanceled = true;
+            requestHandler.IsCancelable = true;
         }
 
         public override Task resume(Player player, object arg)

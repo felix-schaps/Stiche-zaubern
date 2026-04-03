@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using MessagePack;
@@ -44,7 +45,7 @@ namespace Stiche_zaubern
             DisplayManager.getGameTextBlock().Text = "Spiel wird beendet.";
 
             Instance._requestHandler.CancelRequest = true;
-            while(!Instance._requestHandler.IsCanceled)
+            while(!Instance._requestHandler.IsCancelable)
             {
                 await Task.Delay(UPDATE_RATE);
             }
@@ -69,9 +70,15 @@ namespace Stiche_zaubern
                 RoundMode = Instance.game.GetActiveRound().RoundMode,
                 PlayerQueue = Instance._gameModeManager.GetPlayerQueue()
             };
+
         // Serialisieren und in Datei schreiben (korrekte MessagePack API verwenden)
         byte[] bytes = MessagePackSerializer.Serialize<SaveGame>(saveGame);
         System.IO.File.WriteAllBytes(localFolder + filePath, bytes);
+
+            if (saveGame.RoundMode == RoundMode.END)
+            {
+                System.IO.File.Delete(localFolder + filePath);
+            }
         }
 
         public static void skipAnimation()
@@ -141,10 +148,71 @@ namespace Stiche_zaubern
                 Dispose();
             }
             Instance = this;
-            this.game = null;//TODO: Spiel aus Datei laden und zuweisen
+
+            byte[] bindata = File.ReadAllBytes(localFolder + filePath);
+            SaveGame data = MessagePackSerializer.Deserialize<SaveGame>(bindata);
+
+            int numPlayers = data.Players.Count;
+
+            List<Player> players = new List<Player>();
+            foreach (Stiche_Zaubern_MsgpLib.Player playerLib in data.Players)
+            {
+                if (data.ActivePlayerId == playerLib.Id)
+                {
+                    players.Add(new ActivePlayer(playerLib, DisplayManager.GridActivePlayer));
+                }
+                else
+                {
+                    players.Add(new AIPlayer(playerLib, DisplayManager.GridsOtherPlayers[(playerLib.Id + data.ActivePlayerId - 1) % numPlayers]));
+                }
+            }
+
+            this.game = new GameServer(players, new NetworkTalkManager(new Dictionary<Player, NetworkTalker>()));
+
+            Dictionary<Player, List<Card>> playerHands = new Dictionary<Player, List<Card>>();
+            foreach (Player player in game.Players)
+            {
+                Stiche_Zaubern_MsgpLib.PlayerInRound playerInRoundLib = data.ActiveRound.PlayersInRound.First(p => p.PlayerId == player.Id);
+                playerHands.Add(player, playerInRoundLib.Hand.Select(b => GameInfo.GetDeck().Decode(b)).ToList());
+            }
+
+            game.SetActiveRound(data.ActiveRound);
+
             talkManager = game.TalkManager;
             _requestHandler = new RequestHandler();
             // Am Kontrollpunkt nach dem Laden des Spiels die GameModeManager entsprechend weiterfahren
+            playerHands.ToList().ForEach(kv => kv.Key.giveCards(kv.Value));
+
+            GameModeManager gameModeManager;
+            switch (data.RoundMode)
+            {
+                case RoundMode.CHOOSING_TRUMP:
+                    gameModeManager = new TrumpChoosingManager();
+                    break;
+                case RoundMode.GUESSING:
+                    gameModeManager = new GuessingManager();
+                    break;
+                case RoundMode.TRICKING:
+                    gameModeManager = new TrickingManager();
+                    break;
+                case RoundMode.JUGGLING:
+                    gameModeManager = new JugglingManager();
+                    break;
+                default:
+                    throw new Exception("Ungültiger Spielmodus");
+            }
+            Instance._gameModeManager = gameModeManager;
+
+            Queue<Player> playerQueue = new Queue<Player>();
+
+            foreach (var p in data.PlayerQueue)
+            {
+                playerQueue.Enqueue(players.First(pl => pl.Id == p));
+            }
+
+            Instance._gameModeManager.load(Instance.game.GetActiveRound(), Instance._requestHandler, Instance.talkManager, playerQueue);
+
+
         }
 
         public void Dispose()

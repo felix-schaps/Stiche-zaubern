@@ -31,7 +31,7 @@ namespace Stiche_zaubern
             giveCards(cards.ToImmutableSortedSet());
         }
 
-        public virtual void giveCards(ImmutableSortedSet<Card> cards)
+        private void giveCards(ImmutableSortedSet<Card> cards)
         {
             getPlayerInActiveRound().giveCards(cards);
             display.displayGivenCards(getPlayerInActiveRound().Hand);

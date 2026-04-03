@@ -48,6 +48,11 @@ namespace Stiche_zaubern
             return mixedDeck;
         }
 
+        public void SetActiveRound(Stiche_Zaubern_MsgpLib.GameRound activeRound)
+        {
+            rounds.Add(new GameRound(activeRound, Players));
+
+        }
     }
 
     public class GameInfo

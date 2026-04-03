@@ -58,6 +58,20 @@ namespace Stiche_zaubern
             beginWithPlayer = (numberRound - 1) % GameInfo.GetNumPlayers();
         }
 
+        public GameRound(Stiche_Zaubern_MsgpLib.GameRound roundLib, List<Player> players)
+        {
+            _roundLib = roundLib;
+            _ = new ActiveRoundInfo(this);
+            GuessHelper = new GuessHelper(this);
+            bombedTrick = null;
+            // Das ist noch falsch
+            // Es muesste eigentlich auch noch dicHelpColorCannotFollowSuitBy mitabgespeichert werden, damit das Laden eines Spiels korrekt funktioniert
+            initializePlayers(players);
+
+            beginWithPlayer = (NumberRound - 1) % GameInfo.GetNumPlayers();
+        
+        }
+
         public void BeginRound(List<Card> mixedDeck)
         {
             Queue<Card> activeStapel = new Queue<Card>(mixedDeck);
